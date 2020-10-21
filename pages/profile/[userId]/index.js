@@ -17,7 +17,8 @@ import { NextSeo } from 'next-seo';
 import FollowUser from "../../../components/profile/FollowUser";
 import Tooltip from '@material-ui/core/Tooltip';
 import Fade from '@material-ui/core/Fade';
-import { withRouter } from 'next/router'
+import { withRouter } from 'next/router';
+import Router from "next/router";
 import { authInitialProps } from "../../../lib/auth";
 import {
   getPostsByUser,
@@ -56,7 +57,9 @@ class post extends React.Component {
         posts
       });
     })
-    .catch();
+    .catch(err => {
+      Router.replace('/404');
+    });
   }
   checkFollowing = (auth,requesteduser)=>{
     return requesteduser.followers.findIndex(follower => follower._id
