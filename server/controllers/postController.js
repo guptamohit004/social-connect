@@ -6,6 +6,7 @@ const multer = require("multer");
 const cloudinary = require('../helpers/helper');
 const notificationSchema = require('../models/Notification');
 const pushnotificationSchema = require('../models/PushNotification');
+const pushController = require('./pushController');
 
 
 const storage = multer.diskStorage({
@@ -118,6 +119,28 @@ exports.toggleLike = async (req, res) => {
               console.log(err);
           } else {
             console.log("Added the notification");
+            pushnotificationSchema.find({user:post.postedBy._id},(err,data)=>{
+              if(err){
+
+              }
+              else{
+                  if(data.length>0)
+                  {
+                      var pushData={
+                          token:[]
+                      };
+                      data.map((data)=>{
+                          pushData.token.push(data.token);
+                          pushData.title  = `${req.user.name} @(${req.user.username}) Liked your Post. `;
+                          pushData.body   = post.caption
+                          pushData.link   = `https://social-connect004.herokuapp.com/profile/${req.user.username}`
+                          pushData.icon=req.user.avatar,
+                          pushData.image = post.image
+                      })
+                      pushController.sendPush(pushData);
+                  }
+              }
+          })
           }
           });
     }
@@ -156,6 +179,28 @@ exports.toggleComment = async (req, res) => {
           console.log(err);
       } else {
         console.log("Added the notification");
+        pushnotificationSchema.find({user:post.postedBy._id},(err,data)=>{
+          if(err){
+
+          }
+          else{
+              if(data.length>0)
+              {
+                  var pushData={
+                      token:[]
+                  };
+                  data.map((data)=>{
+                      pushData.token.push(data.token);
+                      pushData.title  = `${req.user.name} @(${req.user.username}) commented on your Post:${post.caption} `;
+                      pushData.body   = comment.text
+                      pushData.link   = `https://social-connect004.herokuapp.com/profile/${req.user.username}`
+                      pushData.icon=req.user.avatar,
+                      pushData.image = post.image
+                  })
+                  pushController.sendPush(pushData);
+              }
+          }
+      })
       }
       });
     }

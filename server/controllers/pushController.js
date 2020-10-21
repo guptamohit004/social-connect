@@ -23,27 +23,15 @@ exports.markReadNotification = async (req, res,next)=>{
 }
 
 exports.sendPush = async(pushData)=>{
-    console.log(pushData)
     var message = {
       registration_ids:pushData.token,
       notification: {
         title: pushData.title,
         icon: pushData.icon,
+        image:pushData.image,
         body:pushData.body,
         vibrate: [200, 100, 200],
-        click_action:pushData.link,
-        actions: [
-          {
-            title: "Like",
-            action: "like",
-            icon: "https://firebase.google.com/images/brand-guidelines/logo-vertical.png",
-          },
-          {
-            title: "Unsubscribe",
-            action: "unsubscribe",
-            icon: "https://firebase.google.com/images/brand-guidelines/logo-vertical.png"
-          }
-        ]
+        click_action:pushData.link
         },
         priority : "high"
     }
