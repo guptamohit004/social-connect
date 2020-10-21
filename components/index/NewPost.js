@@ -66,7 +66,7 @@ const NewPost = ({
       <Button
         color="primary"
         variant="contained"
-        disabled={(!text && !imagePreview) || isAddingPost}
+        disabled={(!text || (imagePreview == "")) || isAddingPost}
         className={classes.submit}
         onClick={handleAddPost}
       >
