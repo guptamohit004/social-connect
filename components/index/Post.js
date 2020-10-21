@@ -167,7 +167,7 @@ class Post extends React.PureComponent {
           <Comments
             auth={auth}
             postId={post._id}
-            comments={comments.splice(0,3)}
+            comments={comments}
             isFromPopup={111}
             handleAddComment={handleAddComment}
             handleDeleteComment={handleDeleteComment}

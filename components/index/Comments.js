@@ -60,7 +60,7 @@ class Comments extends React.Component {
             fontWeight:"normal",
             color:"#C62828"
           }}>
-          {comment.postedBy.name} @{comment.postedBy.username}</a>
+          {comment.postedBy.name} (@{comment.postedBy.username})</a>
         </Link>
         <br />
         {comment.text}
@@ -81,10 +81,12 @@ class Comments extends React.Component {
   render() {
     const { auth, comments, classes,isFromPopup } = this.props;
     const { text } = this.state;
+    let commentsCopy = Object.create(comments);
+    commentsCopy = isFromPopup != '1'  ? commentsCopy.splice(0,3) : commentsCopy;
     return (
       <div className={classes.comments}>
         {/* Comment Input */}
-        {isFromPopup != '1' ?
+        {1?
         <CardHeader
           avatar={
             <Avatar className={classes.smallAvatar} src={auth.user.avatar} />
@@ -107,7 +109,7 @@ class Comments extends React.Component {
         />:''}
 
         {/* Comments */}
-        {comments.map(comment => (
+        {commentsCopy.map(comment => (
           <CardHeader
             key={comment._id}
             avatar={
