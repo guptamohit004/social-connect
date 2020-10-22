@@ -5,21 +5,23 @@ import BottomNavbar from "./BottomNavbar";
 const CheckDevice = (props) => {
 
     const [windowDimension, setWindowDimension] = React.useState(null);
+    const [loadingDimension, setloadingDimension] = React.useState(true);
 
-  React.useEffect(() => {
-    setWindowDimension(window.innerWidth);
-  }, []);
-
-  React.useEffect(() => {
-    function handleResize() {
+    React.useEffect(() => {
+      setloadingDimension(false)
       setWindowDimension(window.innerWidth);
-    }
+    }, []);
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    React.useEffect(() => {
+      function handleResize() {
+        setloadingDimension(false)
+        setWindowDimension(window.innerWidth);
+      }
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-  const isMobile = windowDimension <= 640;
+  const isMobile = windowDimension <= 640 && !loadingDimension;
   return (
     <div>
     {

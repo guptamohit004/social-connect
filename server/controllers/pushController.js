@@ -30,7 +30,7 @@ exports.sendPush = async(pushData)=>{
         icon: pushData.icon,
         image:pushData.image,
         body:pushData.body,
-        vibrate: [200, 100, 200],
+        vibrate: [300, 100, 400],
         click_action:pushData.link
         },
         priority : "high"

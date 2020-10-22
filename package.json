@@ -6,7 +6,7 @@
   "cacheDirectories": [
     ".next/cache"
   ],
-    "scripts": {
+  "scripts": {
     "dev": "nodemon server/app.js --watch server",
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "build": "next build"
