@@ -78,7 +78,7 @@ const Navbar = ({classes, router,pageProps:{auth}}) => {
         >
           <MenuItem onClick={(e)=> redirectuser(e,`/profile/${user.username}`)}>Profile</MenuItem>
           <MenuItem onClick={(e)=> redirectuser(e,'/edit-profile')}>Edit Profle</MenuItem>
-          <MenuItem onClick={(e)=> redirectuser(e,'/')}>Settings</MenuItem>
+          <MenuItem onClick={(e)=> redirectuser(e,'/sessions')}>Sessions</MenuItem>
           <Divider/>
           <MenuItem onClick={signoutUser}>Logout</MenuItem>
         </Menu>
