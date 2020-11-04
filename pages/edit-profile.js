@@ -36,7 +36,7 @@ class EditProfile extends React.Component {
     success: "",
     updatedUser: null,
     isSaving: false,
-    isLoading: true
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -44,20 +44,20 @@ class EditProfile extends React.Component {
 
     this.userData = new FormData();
     getAuthUser(auth.user.username)
-      .then(user => {
+      .then((user) => {
         this.setState({
           ...user,
-          authUsernmae:auth.user.username,
-          isLoading: false
+          authUsernmae: auth.user.username,
+          isLoading: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         this.setState({ isLoading: false });
       });
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     let inputValue;
     if (event.target.name === "avatar") {
       inputValue = event.target.files[0];
@@ -67,31 +67,38 @@ class EditProfile extends React.Component {
     }
     this.userData.set(event.target.name, inputValue);
     this.setState({ [event.target.name]: inputValue });
-    console.log(this.userData)
+    console.log(this.userData);
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ isSaving: true });
-    var {authUsernmae,_id,name,email,username,about} = this.state;
+    var { authUsernmae, _id, name, email, username, about } = this.state;
     this.userData.set("id", _id);
-    this.userData.set("name",name);
-    this.userData.set("email",email);
-    this.userData.set("username",username);
-    this.userData.set("about",about);
+    this.userData.set("name", name);
+    this.userData.set("email", email);
+    this.userData.set("username", username);
+    this.userData.set("about", about);
     updateUser(authUsernmae, this.userData)
-      .then(updatedUser => {
-        this.setState({ updatedUser,success: "Profile Updated Successfully", openSuccess: true,isSaving:false }, () => {
-        });
+      .then((updatedUser) => {
+        this.setState(
+          {
+            updatedUser,
+            success: "Profile Updated Successfully",
+            openSuccess: true,
+            isSaving: false,
+          },
+          () => {}
+        );
       })
       .catch(this.showError);
   };
 
-  createPreviewImage = file => URL.createObjectURL(file);
+  createPreviewImage = (file) => URL.createObjectURL(file);
 
-  handleClose = () => this.setState({ openError: false,openSuccess:false });
+  handleClose = () => this.setState({ openError: false, openSuccess: false });
 
-  showError = err => {
+  showError = (err) => {
     const error = (err.response && err.response.data) || err.message;
     this.setState({ error, openError: true, isSaving: false });
   };
@@ -112,7 +119,7 @@ class EditProfile extends React.Component {
       openSuccess,
       openError,
       error,
-      success
+      success,
     } = this.state;
 
     return (
@@ -147,7 +154,10 @@ class EditProfile extends React.Component {
             />
             <label htmlFor="avatar" className={classes.uploadButton}>
               <Button variant="contained" color="secondary" component="span">
-                {avatar || avatarPreview ? 'Change Profile Picture':'Upload New Profile Picture'} <CloudUpload />
+                {avatar || avatarPreview
+                  ? "Change Profile Picture"
+                  : "Upload New Profile Picture"}{" "}
+                <CloudUpload />
               </Button>
             </label>
             <span className={classes.filename}>{avatar && avatar.name}</span>
@@ -161,17 +171,22 @@ class EditProfile extends React.Component {
               />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="name">Username</InputLabel>
-            <Input
-              type="text"
-              name="username"
-              value={username}
-              onChange={this.handleChange}
-            />
-            <Typography style={{color:'red'}} variant="caption" display="block" gutterBottom>
-            *You may get Logged out of all sessons,due to security reasons.
-            </Typography>
-          </FormControl>
+              <InputLabel htmlFor="name">Username</InputLabel>
+              <Input
+                type="text"
+                name="username"
+                value={username}
+                onChange={this.handleChange}
+              />
+              <Typography
+                style={{ color: "red" }}
+                variant="caption"
+                display="block"
+                gutterBottom
+              >
+                *You may get Logged out of all sessons,due to security reasons.
+              </Typography>
+            </FormControl>
             <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="about">Bio</InputLabel>
               <Input
@@ -208,7 +223,7 @@ class EditProfile extends React.Component {
           <Snackbar
             anchorOrigin={{
               vertical: "bottom",
-              horizontal: "right"
+              horizontal: "right",
             }}
             open={openError}
             onClose={this.handleClose}
@@ -220,7 +235,7 @@ class EditProfile extends React.Component {
           <Snackbar
             anchorOrigin={{
               vertical: "bottom",
-              horizontal: "left"
+              horizontal: "left",
             }}
             open={openSuccess}
             onClose={this.handleClose}
@@ -233,7 +248,7 @@ class EditProfile extends React.Component {
   }
 }
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "auto",
     display: "block",
@@ -242,53 +257,53 @@ const styles = theme => ({
     [theme.breakpoints.up("md")]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto"
-    }
+      marginRight: "auto",
+    },
   },
   bigAvatar: {
     width: 60,
     height: 60,
-    margin: "auto"
+    margin: "auto",
   },
   uploadButton: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    margin: "0.25em"
+    margin: "0.25em",
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing.unit * 2,
   },
   signinLink: {
     textDecoration: "none",
-    color: "white"
+    color: "white",
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%",
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
   },
   snack: {
-    color: theme.palette.secondary.light
+    color: theme.palette.secondary.light,
   },
   icon: {
     padding: "0px 2px 2px 0px",
     verticalAlign: "middle",
-    color: "green"
+    color: "green",
   },
   input: {
-    display: "none"
-  }
+    display: "none",
+  },
 });
 
 EditProfile.getInitialProps = authInitialProps(true);
