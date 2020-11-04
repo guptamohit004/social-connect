@@ -31,7 +31,7 @@ const CheckDevice = (props) => {
           )
         :
          (
-            <Navbar {...props} />
+           <div></div>
           )
     }
     </div>

@@ -1,10 +1,12 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Avatar from "@material-ui/core/Avatar";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Router from "next/router";
-
+import Paper from "@material-ui/core/Paper";
 import PostFeed from "../components/index/PostFeed";
 import UserFeed from "../components/index/UserFeed";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -24,7 +26,7 @@ const Index = ({ classes, auth }) => (
             variant="permanent"
             anchor="right"
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
           >
             <UserFeed auth={auth} />
@@ -32,75 +34,100 @@ const Index = ({ classes, auth }) => (
         </Grid>
       </Grid>
     ) : (
-      // Splash Page (UnAuth Page)
-      <Grid
-        justify="center"
-        alignItems="center"
-        direction="row"
-        container
-        className={classes.heroContent}
-      >
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="textPrimary"
-          gutterBottom
-        >
-        Social Connect
-        </Typography>
-        <Typography
-          variant="h6"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-        A social connect platform.
-        </Typography>
+      <Grid container component="main" className={classes.root}>
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <fragment className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <br />
+            <Grid container>
+              <Grid item xs></Grid>
+              <Grid item style={{ "margin-right": "75px" }}>
+                <Typography component="h1" variant="h5">
+                  <Button variant="contained" color="primary" href="/signin">
+                    Login
+                  </Button>
+                </Typography>
+              </Grid>
+            </Grid>
+          </fragment>
+          <fragment className={classes.paper2}>
+            <Typography component="h1" variant="h5">
+              A place to talk and have community-based discussions with
+              like-minded people.
+            </Typography>
+            <br />
+            <Typography component="h2" variant="h6">
+              Get Started Today.
+            </Typography>
+          </fragment>
+        </Grid>
       </Grid>
     )}
   </main>
 );
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    paddingTop: theme.spacing.unit * 10,
-    paddingLeft: theme.spacing.unit * 5,
-    [theme.breakpoints.down("sm")]: {
-      paddingRight: theme.spacing.unit * 5
-    }
+    height: "100vh",
+  },
+  avatar: {
+    "margin-left": "60px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "centre",
+    backgroundColor: theme.palette.secondary.main,
+  },
+  paper: {
+    "margin-top": "120px",
+    "margin-bottom": "60px",
+    display: "flex",
+  },
+  paper2: {
+    "margin-left": "60px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "centre",
+  },
+  image: {
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   progressContainer: {
-    height: "80vh"
+    height: "80vh",
   },
   progress: {
     margin: theme.spacing.unit * 2,
-    color: theme.palette.secondary.light
+    color: theme.palette.secondary.light,
   },
   drawerContainer: {
     [theme.breakpoints.down("sm")]: {
-      display: "none"
-    }
+      display: "none",
+    },
   },
-  postContainer:{
-    marginBottom:'134px'
+  postContainer: {
+    marginBottom: "134px",
   },
   drawer: {
-    width: 350
+    width: 350,
   },
   drawerPaper: {
     marginTop: 70,
-    width: 350
+    width: 350,
   },
   fabButton: {
-    margin: theme.spacing.unit * 3
+    margin: theme.spacing.unit * 3,
   },
   heroContent: {
     maxWidth: 600,
     paddingTop: theme.spacing.unit * 8,
     paddingBottom: theme.spacing.unit * 6,
-    margin: "0 auto"
-  }
+    margin: "0 auto",
+  },
 });
 
 Index.getInitialProps = authInitialProps();
