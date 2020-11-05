@@ -1,5 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Avatar from "@material-ui/core/Avatar";
+import EmailIcon from "@material-ui/icons/Email";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +12,11 @@ import PostFeed from "../components/index/PostFeed";
 import UserFeed from "../components/index/UserFeed";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { authInitialProps } from "../lib/auth";
+import GoogleButton from "react-google-button";
+
+const redirect = (url) => {
+  Router.push(url);
+};
 
 const Index = ({ classes, auth }) => (
   <main className={classes.root}>
@@ -46,7 +52,13 @@ const Index = ({ classes, auth }) => (
               <Grid item xs></Grid>
               <Grid item style={{ "margin-right": "75px" }}>
                 <Typography component="h1" variant="h5">
-                  <Button variant="contained" color="primary" href="/signin">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      redirect("/signin");
+                    }}
+                  >
                     Login
                   </Button>
                 </Typography>
@@ -62,6 +74,26 @@ const Index = ({ classes, auth }) => (
             <Typography component="h2" variant="h6">
               Get Started Today.
             </Typography>
+          </fragment>
+          <fragment className={classes.paper2}>
+            <Button
+              variant="contained"
+              style={{ "margin-top": "14px", width: "250px" }}
+              color="default"
+              onClick={() => {
+                redirect("/signin");
+              }}
+            >
+              <EmailIcon />
+              <t /> Continue with Email
+            </Button>
+            <GoogleButton
+              label="Continue with Google"
+              style={{ "margin-top": "14px", width: "250px" }}
+              onClick={() => {
+                redirect("/auth/google");
+              }}
+            />
           </fragment>
         </Grid>
       </Grid>
@@ -86,6 +118,7 @@ const styles = (theme) => ({
     display: "flex",
   },
   paper2: {
+    "margin-top": "10px",
     "margin-left": "60px",
     display: "flex",
     flexDirection: "column",
