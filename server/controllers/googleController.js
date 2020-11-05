@@ -41,11 +41,10 @@ passport.use(
           await User.register(userData, "mohit", (err, useruserData2) => {
             if (err) {
               console.log(err.message);
-              return res.status(500).send(err.message);
             }
             if (useruserData2) {
-              console.log(useruserData2);
-              res.status(200).send(`Signed Up`);
+              cosnsole.log(useruserData2);
+              done(null, useruserData2);
             }
           });
         }
