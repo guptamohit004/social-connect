@@ -123,6 +123,11 @@ class Signin extends React.Component {
               {isLoading ? "Signing In..." : "Sign In"}
             </Button>
           </form>
+          <br />
+          <br />
+          <Button fullWidth variant="contained" color="secondary">
+            Forgot Password ?
+          </Button>
           {/* Error Snackbar */}
           {error && (
             <Snackbar

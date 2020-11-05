@@ -14,8 +14,8 @@ require("dotenv").config();
 /* Require our models here so we can use the mongoose.model() singleton to reference our models across our app */
 require("./models/Post");
 require("./models/User");
-const routes = require("./routes");
-const google = require("./controllers/googleController");
+const indexRoute = require("./routes/index");
+const googleRoute = require("./controllers/googleController");
 require("./passport");
 
 const dev = process.env.NODE_ENV !== "production";
@@ -112,8 +112,8 @@ app.prepare().then(() => {
   });
 
   /* apply routes from the "routes" folder */
-  server.use("/", routes);
-  server.use("/", google);
+  server.use("/", indexRoute);
+  server.use("/", googleRoute);
 
   /* Error handling from async / await functions */
   server.use((err, req, res, next) => {
