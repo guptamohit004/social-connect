@@ -15,6 +15,7 @@ require("dotenv").config();
 require("./models/Post");
 require("./models/User");
 const routes = require("./routes");
+const google = require("./controllers/googleController");
 require("./passport");
 
 const dev = process.env.NODE_ENV !== "production";
@@ -24,32 +25,29 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 function redirectTrailingSlash(req, res, next) {
-  let paths = req.url.split("?") // get url and query from request
-  let path = paths[0], query = null; // split request and query
-  if (paths.length > 1)
-      query = paths.slice(1, paths.length).join("?") // Rebuild query
+  let paths = req.url.split("?"); // get url and query from request
+  let path = paths[0],
+    query = null; // split request and query
+  if (paths.length > 1) query = paths.slice(1, paths.length).join("?"); // Rebuild query
 
-  if (path.substr(-1) === '/' && path.length > 1)
-      res.redirect(301, path.slice(0, -1) + ((query)?('?'+query):'')); // Redirect User with 301 and without the slash
-  else
-      next();
+  if (path.substr(-1) === "/" && path.length > 1)
+    res.redirect(301, path.slice(0, -1) + (query ? "?" + query : ""));
+  // Redirect User with 301 and without the slash
+  else next();
 }
 
 const mongooseOptions = {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 };
 
 mongoose
-  .connect(
-    process.env.MONGO_URI,
-    mongooseOptions
-  )
+  .connect(process.env.MONGO_URI, mongooseOptions)
   .then(() => console.log("DB connected"));
 
-mongoose.connection.on("error", err => {
+mongoose.connection.on("error", (err) => {
   console.log(`DB connection error: ${err.message}`);
 });
 
@@ -85,7 +83,7 @@ app.prepare().then(() => {
     secret: process.env.SESSION_SECRET,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
-      ttl: 1000 * 60 * 60 * 24 * 30 // save session for 30 days
+      ttl: 1000 * 60 * 60 * 24 * 30, // save session for 30 days
     }),
     // forces the session to be saved back to the store
     resave: false,
@@ -93,12 +91,12 @@ app.prepare().then(() => {
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 30 // expires in 30 days
-    }
+      maxAge: 1000 * 60 * 60 * 24 * 30, // expires in 30 days
+    },
   };
 
-    // sessionConfig.cookie.secure = true; // serve secure cookies in production environment
-    // server.set("trust proxy", 1); // trust first proxy
+  // sessionConfig.cookie.secure = true; // serve secure cookies in production environment
+  // server.set("trust proxy", 1); // trust first proxy
 
   /* Apply our session configuration to express-session */
   server.use(session(sessionConfig));
@@ -115,6 +113,7 @@ app.prepare().then(() => {
 
   /* apply routes from the "routes" folder */
   server.use("/", routes);
+  server.use("/", google);
 
   /* Error handling from async / await functions */
   server.use((err, req, res, next) => {
@@ -126,7 +125,7 @@ app.prepare().then(() => {
     handle(req, res);
   });
 
-  server.listen(port, err => {
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log(ROOT_URL);
   });
