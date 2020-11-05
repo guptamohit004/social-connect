@@ -43,7 +43,6 @@ passport.use(
               console.log(err.message);
             }
             if (useruserData2) {
-              cosnsole.log(useruserData2);
               done(null, useruserData2);
             }
           });
