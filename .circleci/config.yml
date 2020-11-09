@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /go/src/github.com/guptamohit004/social-connect
+    working_directory: github.com/guptamohit004/social-connect
     docker:
       - image: circleci/node:latest
     steps:
