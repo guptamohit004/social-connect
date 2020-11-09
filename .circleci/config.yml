@@ -1,20 +1,20 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tmp
+    working_directory: ~/mohit
     docker:
       - image: circleci/node:latest
     steps:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - node-v1-{{ .master }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .master }}-
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
             - node-v1-
       - run: npm install
       - save_cache:
           paths:
-            - ~/tmp/node_modules # location depends on npm version
-          key: node-v1-{{ .master }}-{{ checksum "package-lock.json" }}
+            - ~/mohit/node_modules # location depends on npm version
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - checkout
       - run: npm build
