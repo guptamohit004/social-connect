@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tmp
     docker:
       - image: circleci/node:latest
     steps:
@@ -18,5 +17,5 @@ jobs:
             yarn install
       - save_cache:
           paths:
-            - web/node_modules
+            - /node_modules
           key: dependencies-{{ checksum "web/package.json" }}
