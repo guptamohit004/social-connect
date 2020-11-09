@@ -2,20 +2,18 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:8
+    working_directory: ~/repo
     steps:
       - checkout
-
+      # Download and cache dependencies
       - restore_cache:
           keys:
-            - dependencies-{{ checksum "web/package.json" }}
-            - dependencies-
-
-      - run:
-          working_directory: web
-          command: |
-            yarn install
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: npm install
       - save_cache:
           paths:
-            - /node_modules
-          key: dependencies-{{ checksum "web/package.json" }}
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
