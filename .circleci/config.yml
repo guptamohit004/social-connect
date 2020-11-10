@@ -2,14 +2,14 @@ version: 2
 orbs:
   heroku: circleci/heroku@0.0.10
   workflows:
-    heroku_deploy:
-      jobs:
-        - heroku/deploy-via-git
     jobs:
       build:
         docker:
           - image: circleci/node:8
         working_directory: ~/repo
+        heroku_deploy:
+          jobs:
+            - heroku/deploy-via-git
         steps:
           - checkout
           # Download and cache dependencies
