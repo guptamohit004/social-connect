@@ -1,18 +1,18 @@
-version: 2.1
+version: 2
 orbs:
   heroku: circleci/heroku@0.0.10
-  node: circleci/node@2.0.2
 workflows:
   heroku_deploy:
     jobs:
       - deploy
 jobs:
-  working_directory: ~/repo
-  deploy:
-    executor: heroku/default
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
     steps:
       - checkout
-        # Download and cache dependencies
+      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -23,6 +23,10 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
       - heroku/install
       - run:
           command: |
