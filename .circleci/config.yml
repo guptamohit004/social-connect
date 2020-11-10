@@ -19,4 +19,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+  workflows:
+  heroku_deploy:
+    jobs:
       - heroku/deploy-via-git
