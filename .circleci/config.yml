@@ -2,9 +2,11 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.10
 workflows:
-  heroku_deploy:
+  npm_cache:
     jobs:
       - build
+  heroku_deploy:
+    jobs:
       - deploy
 jobs:
   build:
