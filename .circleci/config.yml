@@ -1,7 +1,37 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
+  heroku: circleci/heroku@0.0.10
 workflows:
-  node-tests:
+  npm_cache:
     jobs:
-      - node/test
+      - build
+  heroku_deploy:
+    jobs:
+      - deploy
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          command: |
+            echo "The command above installs Heroku, the command below deploys. What you do inbetween is up to you!"
+      - heroku/deploy-via-git
