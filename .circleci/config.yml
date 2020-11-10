@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  heroku: circleci/heroku@0.0.10
 jobs:
   build:
     docker:
@@ -17,3 +19,4 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - heroku/deploy-via-git
