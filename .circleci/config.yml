@@ -9,6 +9,9 @@ jobs:
   working_directory: ~/repo
   deploy:
     executor: heroku/default
+    build:
+      docker:
+        - image: circleci/node:8
     steps:
       - checkout
         # Download and cache dependencies
