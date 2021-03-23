@@ -1,7 +1,7 @@
 const notificationSchema = require('../models/Notification');
 const pushnotificationSchema = require('../models/PushNotification');
 var FCM = require('fcm-node');
-var serverKey = 'AAAA0ptuK-0:APA91bF8sAe5B42qKsCiEWo2Xn1vBIePo5dL9X0NEnLpF4_lAg_soq5KOG05YGpX2Ub4jV-j5utqaCYR14DSI-zpzz_WdHrCpm-MkG251K87enTNqF6p_QHKiMSnFE4P7ArPo2mvq2Q8'; // put your server key here
+var serverKey = process.env.SERVER_KEY_FCM; // put your server key here
 var fcm = new FCM(serverKey);
 
 exports.setToken = async (req, res,next)=>{

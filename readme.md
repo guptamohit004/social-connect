@@ -1,5 +1,8 @@
+[![CircleCI](https://circleci.com/gh/guptamohit004/social-connect.svg?style=svg)](https://github.com/guptamohit004/social-connect)
+
 <!-- PROJECT LOGO -->
 <br />
+
 <p align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
     <img src="https://social.guptamohit004.tech/favicon-32x32.png" alt="Logo" width="80" height="80">
@@ -93,6 +96,7 @@ To get a local copy up and running follow these simple example steps.
     CLOUDINARY_CLOUD_NAME= // CLOUDINARY CLOUD NAME
     CLOUDINARY_API_SECRET= // CLOUDINARY API SECRET
     CLOUDINARY_API_KEY= // CLOUDINARY API KEY
+    SERVER_KEY_FCM= // Server Key of FCM
    ```
 
 <!-- USAGE EXAMPLES -->

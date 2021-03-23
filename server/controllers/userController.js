@@ -210,7 +210,7 @@ exports.addFollower = async (req,res,next) => {
                                         pushData.token.push(data.token);
                                         pushData.title  = `${req.user.name} @(${req.user.username}) Started Following You.😊 `;
                                         pushData.body   = `View there profile and get connected.`
-                                        pushData.link   = `https://social-connect004.herokuapp.com/profile/${req.user.username}`
+                                        pushData.link   = `${process.env.PRODUCTION_URL}/profile/${req.user.username}`
                                         pushData.icon=req.user.avatar
                                     })
                                     pushController.sendPush(pushData);

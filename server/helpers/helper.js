@@ -1,8 +1,9 @@
 const cloudinary = require('cloudinary').v2;
+
 cloudinary.config({
-    cloud_name: 'dwmckpjq0',
-    api_key: '277664388976843',
-    api_secret: 'vjmkY-wxPyWof0iVS64lO0h_FG8'
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 exports.cloudinaryDelete = async (req,res,next,fileName)=>{

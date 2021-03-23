@@ -55,7 +55,7 @@ exports.sessions=async(req,res,next)=>{
   .then((data)=>{
       data.forEach(function(message){
         var body = JSON.parse(message.session);
-        if(body.passport.user == req.user.username)
+        if(body.passport.user == req.user.username && body.city)
         {
           var obj={
             id:message._id,

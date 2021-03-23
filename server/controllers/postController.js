@@ -133,7 +133,7 @@ exports.toggleLike = async (req, res) => {
                           pushData.token.push(data.token);
                           pushData.title  = `${req.user.name} @(${req.user.username}) Liked your Post. `;
                           pushData.body   = post.caption
-                          pushData.link   = `https://social-connect004.herokuapp.com/profile/${req.user.username}`
+                          pushData.link   = `${process.env.PRODUCTION_URL}/profile/${req.user.username}`
                           pushData.icon=req.user.avatar,
                           pushData.image = post.image
                       })
@@ -193,7 +193,7 @@ exports.toggleComment = async (req, res) => {
                       pushData.token.push(data.token);
                       pushData.title  = `${req.user.name} @(${req.user.username}) commented on your Post:${post.caption} `;
                       pushData.body   = comment.text
-                      pushData.link   = `https://social-connect004.herokuapp.com/profile/${req.user.username}`
+                      pushData.link   = `${process.env.PRODUCTION_URL}/profile/${req.user.username}`
                       pushData.icon=req.user.avatar,
                       pushData.image = post.image
                   })
