@@ -32,20 +32,16 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 A place to share and have discussions with like-minded people.
 
@@ -102,6 +98,18 @@ To get a local copy up and running follow these simple example steps.
 <!-- USAGE EXAMPLES -->
 
 ## Screenshots
+
+<img src="screenshots\home_page.png" width="45%"></img>
+<img src="screenshots\login.png" width="45%"></img>
+<img src="screenshots\feed_page.png" width="45%"></img>
+<img src="screenshots\add_post.png" width="45%"></img>
+<img src="screenshots\user_profile.png" width="45%"></img>
+<img src="screenshots\sessions.png" width="45%"></img>
+<img src="screenshots\edit-profile.png" width="45%"></img>
+<img src="screenshots\followers.png" width="45%"></img>
+<img src="screenshots\following.png" width="45%"></img>
+
+<img src="screenshots\inapp_notifications.png"></img>
 
 <!-- CONTRIBUTING -->
 
